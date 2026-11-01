@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dbdlsntpum3dw"]
+
+[ext_resource type="Texture2D" uid="uid://bvwo7504yskkj" path="res://assets/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png" id="1_ls0pt"]
+[ext_resource type="Script" uid="uid://do1p6yyknj2hp" path="res://scripts/gold.gd" id="1_yna14"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yna14"]
+atlas = ExtResource("1_ls0pt")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yna14")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 14.0
+
+[node name="Gold" type="Area2D" unique_id=1488969741]
+collision_mask = 2
+script = ExtResource("1_yna14")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1690776484]
+sprite_frames = SubResource("SpriteFrames_xrivr")
+frame_progress = 0.77973866
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=560458205]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_xrivr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
