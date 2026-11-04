@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dxqdar7obek6y"]
+
+[ext_resource type="Script" uid="uid://bg35rkj64atju" path="res://scripts/slime_death_effect.gd" id="1_jk42b"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xrivr"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 0, 0)
+scale_min = 4.0
+scale_max = 7.0
+color = Color(0.42745098, 0.63529414, 0, 1)
+
+[node name="SlimeDeathEffect" type="GPUParticles2D" unique_id=231338053]
+z_index = 10
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xrivr")
+script = ExtResource("1_jk42b")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

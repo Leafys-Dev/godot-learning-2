@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://drbykbb8wj1d7"]
+
+[ext_resource type="Texture2D" uid="uid://m4yfie7dyh76" path="res://assets/Units/slime_green.png" id="1_g0uwq"]
+[ext_resource type="Script" uid="uid://c6fhorjr5uqes" path="res://scripts/enemies/slime.gd" id="1_mysqx"]
+[ext_resource type="Shader" uid="uid://182svupfutgx" path="res://shaders/hit_flash.gdshader" id="2_dvo7u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmafg"]
+resource_local_to_scene = true
+shader = ExtResource("2_dvo7u")
+shader_parameter/hitflash_amount = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ekb8"]
+atlas = ExtResource("1_g0uwq")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47p8u"]
+atlas = ExtResource("1_g0uwq")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kww8r"]
+atlas = ExtResource("1_g0uwq")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsj8b"]
+atlas = ExtResource("1_g0uwq")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ekb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47p8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kww8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsj8b")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(28, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(42, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mysqx"]
+size = Vector2(42, 41)
+
+[node name="Green Slime" type="CharacterBody2D" unique_id=1288112123]
+collision_layer = 16
+collision_mask = 19
+motion_mode = 1
+script = ExtResource("1_mysqx")
+acceleration = 300.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=285069973]
+material = SubResource("ShaderMaterial_hmafg")
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_xrivr")
+autoplay = "default"
+frame_progress = 0.258462
+offset = Vector2(0, -12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1610600139]
+position = Vector2(0, -19.5)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1574853851]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=898956434]
+position = Vector2(0, -21.5)
+shape = SubResource("RectangleShape2D_13qdw")
+debug_color = Color(0.77254903, 0.15294118, 1, 0.41960785)
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=810565697]
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=856316639]
+position = Vector2(0, -21.5)
+shape = SubResource("RectangleShape2D_mysqx")
+debug_color = Color(0.82258654, 0.0016820735, 0.959616, 0.41960785)
+
+[node name="HitstunTimer" type="Timer" parent="." unique_id=1218725596]
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
